@@ -1,6 +1,18 @@
 """
 Simple graph implementation
 """
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return (len(self.queue))
 
 
 class Graph:
@@ -21,4 +33,22 @@ class Graph:
         else:
             raise IndexError("That vertex does not exist")
 
-    
+    def bft(self, starting_vertex_id):
+        # Create an empty queue
+        q = Queue()
+        # Create an empty set of visited vertices
+        visited = set()
+        # Put the starting vertex in our Queue
+        q.enqueue(starting_vertex_id)
+        # While the queue is not empty....
+        while q.size() > 0:
+           # Dequeue the first node from the queue
+           v = q.dequeue()
+           # If that node has not been visted...
+           if v not in visited:
+              # Mark it as visited
+              print(v)
+              visited.add(v)
+              # Then, put all of it's children into the queue
+              for neighbor in self.vertices[v]:
+                  q.enqueue(neighbor)
