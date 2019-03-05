@@ -17,13 +17,16 @@ class Queue():
 class Stack():
     def __init__(self):
         self.stack = []
+
     def push(self, value):
         self.stack.append(value)
+
     def pop(self):
         if self.size() > 0:
             return self.stack.pop()
         else:
             return None
+
     def size(self):
         return (len(self.stack))
 
@@ -31,6 +34,7 @@ class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
+
     def add_vertex(self, vertex_id):
         self.vertices[vertex_id] = set()
     def add_directed_edge(self,v1, v2):
@@ -64,7 +68,6 @@ class Graph:
               # Then, put all of it's children into the queue
               for neighbor in self.vertices[v]:
                   q.enqueue(neighbor)
-
     def dft(self, starting_vertex_id):
         # Create an empty stack
         s = Stack()
@@ -84,3 +87,40 @@ class Graph:
               # Then, put all of it's children into the stack
               for neighbor in self.vertices[v]:
                   s.push(neighbor)
+
+    def dft_r(self, starting_vertex_id, visited=None):
+        if visited is None:
+            visited = set()
+        # mark the starting node as visitied
+        visited.add(starting_vertex_id)
+        # then call dft recursively on each unvisited neighbor
+        for neighbor in self.vertices[starting_vertex_id]:
+            if neighbor not in visited:
+                self.dft_r(neighbor, visited)
+
+    def bfs(self, starting_vertex_id, target_id):
+        # Create an empty queue
+        q = Queue()
+        # Create an empty set of visited vertices
+        visited = set()
+        # Put the path to the starting vertex in our Queue
+        q.enqueue([starting_vertex_id])
+        # While the queue is not empty....
+        while q.size() > 0:
+           # Dequeue the first node from the queue
+           path = q.dequeue()
+           v = path[-1]
+           # If that node has not been visted...
+           if v not in visited:
+              # Mark it as visited
+              print(v)
+              visited.add(v)
+              #
+              if v == target_id:
+                  return path
+              # Then, put all of it's children into the queue
+              for neighbor in self.vertices[v]:
+                  new_path = list(path)
+                  new_path.append(neighbor)
+                  q.enqueue(neighbor)
+
