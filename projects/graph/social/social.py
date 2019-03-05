@@ -55,7 +55,9 @@ class SocialGraph:
         for userID in self.users:
             for friendID in range(userID + 1, self.lastID + 1):
                 possibleFriendships.append( (userID, friendID) )
-        random.shuffle(possibleFriendships)
+
+        random().shuffle(possibleFriendships)
+
         print(possibleFriendships[:20])
         print(len(possibleFriendships))
 
@@ -75,7 +77,7 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populateGraph(10, 2)
+    sg.populateGraph(10, 3)
     print(sg.friendships)
     connections = sg.getAllSocialPaths(1)
     print(connections)
