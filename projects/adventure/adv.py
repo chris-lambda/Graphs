@@ -22,7 +22,53 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = ['n', 's']
+traversalPath = []
+
+graph = {}
+done = False
+
+print(player.currentRoom.getExits())
+
+directions = ('n', 'e', 's', 'w')
+
+def advt():
+
+    if len(graph) == 500:
+        return
+
+    # Step1: create graph with room
+    exits = player.currentRoom.getExits()
+    for e in exits:
+        if player.currentRoom.id not in graph:
+            graph[player.currentRoom.id] = {e: '?'}
+        elif e not in graph[player.currentRoom.id]:
+            graph[player.currentRoom.id][e] = '?'
+    
+    # Step 2: start moving
+    # for d in directions:
+    #     print(graph[player.currentRoom.id][d])
+    #     if graph[player.currentRoom.id][d] == '?':
+    #         print(f"d: {d}")
+    #         player.travel(d)
+    #         advt()
+
+    # Step 2: travel until there is no directions to go
+        # check if any keys value is '?'
+        # travel to that room
+        # set that directions value to the new room id
+        # set the opposite direction value of the room of the previous id
+
+        # repeate until the current room has no more '?' values
+
+
+    # Step 3: BFS to the closest previous '?' value
+     
+    # Step 4: repeate
+
+advt()
+
+print(graph)
+
 
 
 
